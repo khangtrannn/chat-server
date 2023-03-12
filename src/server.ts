@@ -12,9 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", router);
 
 router.post("/chat", async (req: Request, res: Response) => {
-  const payload: ChatPayload = req.body;
-  const response = await chatgpt.chatCompletion(payload.conversations);
-  res.json(response);
+  try {
+    const payload: ChatPayload = req.body;
+    const response = await chatgpt.chatCompletion(payload.conversations);
+    res.json(response);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.listen(5001, () => {
