@@ -1,3 +1,4 @@
+import { ChatCompletionRequestMessage } from 'openai';
 export interface ChatPayload {
-  message: string;
+  conversations: ChatCompletionRequestMessage[];
 }

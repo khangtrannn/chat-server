@@ -1,4 +1,4 @@
-import { Configuration, CreateChatCompletionResponse, OpenAIApi } from "openai";
+import { ChatCompletionRequestMessage, Configuration, CreateChatCompletionRequest, CreateChatCompletionResponse, OpenAIApi } from "openai";
 
 const chatgpt = (function () {
   const openai = new OpenAIApi(
@@ -8,16 +8,11 @@ const chatgpt = (function () {
   );
 
   const chatCompletion = async (
-    message: string
+    messages: ChatCompletionRequestMessage[]
   ): Promise<CreateChatCompletionResponse> => {
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: message,
-        },
-      ],
+      messages,
     });
 
     return response.data;
